@@ -56,6 +56,8 @@ npm run dev        # term 2 — Vite on :5173, proxies /api to :8080
 Data lives in `./.data/guestbook.json` locally, or `$DATA_DIR` (default `/data`
 in production) when deployed.
 
+> If port 8080 is already taken locally, run with `PORT=8099 npm run serve`.
+
 Preview any commit's identity without checking it out:
 
 ```sh
