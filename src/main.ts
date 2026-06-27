@@ -183,6 +183,7 @@ function renderShell(): void {
         <div class="identity">
           <div class="eyebrow">this deploy is</div>
           <h1 class="codename">${esc(id.codename)}</h1>
+          <p class="tagline">a colour &amp; a codename, grown from this commit's SHA</p>
           <div class="id-foot">
             <span class="sha">${id.shortSha}</span>
             <button class="copy-btn" id="copy">copy full sha</button>
