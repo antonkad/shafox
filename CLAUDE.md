@@ -6,18 +6,21 @@
 The demo app for [kad.dev](https://kad.dev). A one-screen, no-scroll cover with
 a fixed, accessible **stage colour** per stage of the tour (c1 blue, c2 green,
 c3 yellow) and a **codename derived from the build-time commit SHA**, so every
-deployed commit carries its own identity. It is commit **two** of a three-commit
-tour of kad.dev's per-commit deploy model, built around three stable slots:
+deployed commit carries its own identity. It is commit **three** of a
+three-commit tour of kad.dev's per-commit deploy model, built around three stable
+slots:
 
 1. **Picture · object storage** — one fixed object; upload a bounded JPEG/PNG/WebP.
 2. **Rows · Postgres** — timestamped rows, each tagged with the writing commit.
-3. **Next step** — the c2 copy: the commit-one picture and rows stayed with the
-   project; add another row to see it tagged by commit two; then the owner rolls
-   the canonical pointer back to commit one, with the two owner outcomes
-   (keep current data vs. destructive restore of commit-one data) named in text.
+3. **Next step** — the c3 copy: this preview starts from clones of the canonical
+   picture, Postgres rows, and app disk; add a row here tagged by commit three,
+   then open production in a separate tab and observe that the preview row is
+   absent there.
 
-It also keeps a small JSON guestbook on its mounted app disk as a disk proof,
-and shows a data-provenance view.
+A prominent banner reads *test copy — changes stay isolated from production*;
+`Shafox · three — test copy` is the visible brand and page title. It also keeps a
+small JSON guestbook on its mounted app disk as a disk proof, and shows a
+data-provenance view.
 
 ## Stack
 
@@ -83,10 +86,13 @@ inline script using JSON-safe escaping (`server/lib/inline.js`).
 
 ## Data model
 
-Canonical commits serve the shared main data. Preview commits run against
-isolated clones of that data, so what a visitor writes on a preview stays on the
-preview until the owner promotes it. The app does not claim that every commit
-inherently owns an independent picture or database.
+Canonical commits serve the shared main data. This c3 preview runs against
+isolated clones of that data, so what a visitor writes here stays isolated from
+production. It is shared preview state, not a fresh per-visitor sandbox: writes
+persist until the operator resets or deletes the preview, and commit three is
+never promoted. Visitors cannot trigger deploy, promote, reset, or delete. The
+app does not claim that every commit inherently owns an independent picture or
+database.
 
 - `GET /api/rows` lists the newest rows; `POST /api/rows` inserts one row with
   the full commit, short SHA and server timestamp, then trims to the newest 50.

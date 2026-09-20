@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
-// Pin the stable stage colour: c2 is green, and the blue/green/yellow mapping is
+// Pin the stable stage colour: c3 is yellow, and the blue/green/yellow mapping is
 // fixed and legible. The page accent must come from the stage, never from the
 // commit SHA (the SHA still drives the codename and the per-written-commit
 // provenance badges). These read the source directly — no build harness.
@@ -34,9 +34,9 @@ function contrast(a, b) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-test("c2 selects the green stage and the page accent is not SHA-derived", async () => {
+test("c3 selects the yellow stage and the page accent is not SHA-derived", async () => {
   const vineyard = await read("src/vineyard.ts");
-  assert.match(vineyard, /export const STAGE:\s*Stage\s*=\s*"c2"/, "c2 must select the green stage");
+  assert.match(vineyard, /export const STAGE:\s*Stage\s*=\s*"c3"/, "c3 must select the yellow stage");
   assert.match(vineyard, /export function stageAccent\(/, "a stageAccent() selector must exist");
 
   const main = await read("src/main.ts");
@@ -44,12 +44,12 @@ test("c2 selects the green stage and the page accent is not SHA-derived", async 
   assert.doesNotMatch(main, /const accent = commitAccent\(/, "the page accent must not come from the SHA");
 });
 
-test("the pre-boot fallback and visible tagline agree with c2 green", async () => {
+test("the pre-boot fallback and visible tagline agree with c3 yellow", async () => {
   const css = await read("src/style.css");
-  assert.match(css, /--accent:\s*#5a7d42/, "the pre-boot fallback must be the c2 green");
+  assert.match(css, /--accent:\s*#caa435/, "the pre-boot fallback must be the c3 yellow");
 
   const main = await read("src/main.ts");
-  assert.match(main, /stage two green/, "the visible tagline must name stage two green");
+  assert.match(main, /stage three yellow/, "the visible tagline must name stage three yellow");
 });
 
 test("stage palette pins blue/green/yellow to their Vineyard values", async () => {

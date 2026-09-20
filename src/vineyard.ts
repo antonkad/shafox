@@ -33,8 +33,8 @@ const STAGES: Record<Stage, StageAccent> = {
 };
 
 // The one explicit value a later commit changes to select its stage colour.
-// This commit is stage two, so it selects green.
-export const STAGE: Stage = "c2";
+// This commit is stage three, so it selects yellow.
+export const STAGE: Stage = "c3";
 
 export function stageAccent(stage: Stage = STAGE): StageAccent {
   return STAGES[stage];
