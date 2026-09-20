@@ -4,7 +4,7 @@
 
 Shafox is the demo app for [kad.dev](https://kad.dev). It turns kad.dev's core
 moat — *every commit is a first-class, addressable, stateful deployment* — into
-a single screen you can read at a glance. This is commit **one** of a
+a single screen you can read at a glance. This is commit **two** of a
 three-commit guided tour.
 
 ## The idea
@@ -17,16 +17,16 @@ SHA deterministically derives a **codename** and the per-written-commit
 provenance colours, so the same SHA always looks the same, on any machine,
 forever.
 
-On top of that identity, c1 tells the story through three stable slots:
+On top of that identity, c2 tells the story through three stable slots:
 
 | Slot | What it shows |
 |---|---|
 | **Picture · object storage** | One picture at a fixed key. Upload a bounded JPEG, PNG or WebP (verified from magic bytes, 2 MiB cap); the slot shows the current image or a not-provisioned state. |
 | **Rows · Postgres** | A bounded list of timestamped rows. `Add a row` writes one row tagged with the writing commit's full and short SHA, then keeps only the newest 50. |
-| **Next step** | The c1 copy: upload a picture and add a row, then the owner deploys commit 2. |
+| **Next step** | The c2 copy: the picture and rows from commit one stayed with the project; click `Add a row` again to see the new row tagged by commit two; then the owner rolls the canonical pointer back to commit one. Two owner outcomes are named but not triggerable here — **keep current data** leaves the c2 row, while **restore commit-one data** removes changes after the c1 restore point and is destructive. |
 
 A small JSON guestbook on the mounted app disk remains as a **disk proof**, and
-the identity hero shows a data-provenance view. `Shafox · one` is the visible
+the identity hero shows a data-provenance view. `Shafox · two` is the visible
 page title; the derived codename and the per-written-commit provenance badges
 are the secondary identity.
 

@@ -13,8 +13,15 @@ test("visible c1 copy never promises the owner a manual snapshot", async () => {
   assert.doesNotMatch(main, /snapshot\s*now/i, "`Snapshot now` must not appear in visible c1 copy");
 });
 
-test("c1 keeps the upload-a-picture, add-a-row, deploy-commit-2 sequence", async () => {
+test("c1 keeps the upload-a-picture, add-a-row, deploy-commit-2 sequence", async (t) => {
   const main = await read("src/main.ts");
+  // Later stages deliberately replace the c1 next-step sequence with the
+  // rollback story, so these assertions only apply while the rendered layout
+  // still presents itself as commit one.
+  if (!/Commit one of three/.test(main)) {
+    t.skip("not the c1 stage — c1-specific next-step sequence does not apply");
+    return;
+  }
   assert.match(main, /Upload a picture/);
   assert.match(main, /Add a row/);
   assert.match(main, /deploys commit 2/);
