@@ -289,12 +289,12 @@ function renderShell(): void {
             <line x1="15.7" y1="8.3" x2="21.5" y2="2.5" stroke="var(--ink)" stroke-width="2.2"/>
             <circle cx="12" cy="12" r="4.6" fill="var(--accent)"/>
           </svg>
-          Shafox <span class="brand-one">· one</span>
+          Shafox <span class="brand-stage">· two</span>
         </h1>
         <div class="identity">
           <div class="eyebrow">this deploy is</div>
           <p class="codename">${esc(id.codename)}</p>
-          <p class="tagline">a codename from this commit's SHA &middot; stage one blue</p>
+          <p class="tagline">a codename from this commit's SHA &middot; stage two green</p>
           <div class="id-foot">
             <span class="sha">${id.shortSha}</span>
             <button class="copy-btn" id="copy">copy full sha</button>
@@ -345,12 +345,16 @@ function renderShell(): void {
 
       <section class="panel next">
         <div class="kicker">next step</div>
-        <h2 class="slot-h">Commit one of three</h2>
+        <h2 class="slot-h">Commit two of three</h2>
         <ol class="steps">
-          <li>Upload a picture — it is stored once at a fixed key in object storage.</li>
-          <li>Add a row — it lands in Postgres, tagged with this commit's short SHA.</li>
-          <li>The owner deploys commit 2 — previews read isolated clones, while the canonical commit serves the shared main data.</li>
+          <li>The picture and the rows from commit one stayed with the project — same fixed key, same table.</li>
+          <li>Click <b>Add a row</b> again — the new row is tagged with commit two's short SHA, so the c2 write is visible.</li>
+          <li>Then the owner rolls the canonical pointer back to commit one. Two owner outcomes are possible:</li>
         </ol>
+        <p>
+          <b>Keep current data</b> leaves the commit-two row in place. <b>Restore commit-one data</b> removes everything
+          written after commit one's restore point — destructive. This page cannot trigger either; both are owner actions.
+        </p>
         <div class="actions">
           <a class="go" href="${KAD_URL}" target="_blank" rel="noopener">Explore kad.dev →</a>
           <a class="src" href="${SOURCE_URL}" target="_blank" rel="noopener">source</a>

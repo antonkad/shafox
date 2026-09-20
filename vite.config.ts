@@ -3,7 +3,7 @@ import { execSync } from "node:child_process";
 
 // The whole point of Shafox: the commit SHA is baked into the artifact at
 // build time, so every deployed commit carries its own identity. We look at a
-// generous set of env vars (kad.dev, GitHub Actions, Vercel, generic CI) and
+// generous set of env vars (kad.dev, GitHub Actions, generic CI) and
 // fall back to the local git HEAD, then to a dev sentinel.
 function resolveCommitSha(): string {
   const fromEnv =
@@ -14,7 +14,6 @@ function resolveCommitSha(): string {
     process.env.GIT_SHA ||
     process.env.SOURCE_COMMIT ||
     process.env.GITHUB_SHA ||
-    process.env.VERCEL_GIT_COMMIT_SHA ||
     process.env.CI_COMMIT_SHA;
   if (fromEnv && fromEnv.trim()) return fromEnv.trim();
 

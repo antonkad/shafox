@@ -6,13 +6,15 @@
 The demo app for [kad.dev](https://kad.dev). A one-screen, no-scroll cover with
 a fixed, accessible **stage colour** per stage of the tour (c1 blue, c2 green,
 c3 yellow) and a **codename derived from the build-time commit SHA**, so every
-deployed commit carries its own identity. It is commit **one** of a three-commit
+deployed commit carries its own identity. It is commit **two** of a three-commit
 tour of kad.dev's per-commit deploy model, built around three stable slots:
 
 1. **Picture · object storage** — one fixed object; upload a bounded JPEG/PNG/WebP.
 2. **Rows · Postgres** — timestamped rows, each tagged with the writing commit.
-3. **Next step** — the c1 copy: add a picture and a row, then the owner deploys
-   commit 2.
+3. **Next step** — the c2 copy: the commit-one picture and rows stayed with the
+   project; add another row to see it tagged by commit two; then the owner rolls
+   the canonical pointer back to commit one, with the two owner outcomes
+   (keep current data vs. destructive restore of commit-one data) named in text.
 
 It also keeps a small JSON guestbook on its mounted app disk as a disk proof,
 and shows a data-provenance view.

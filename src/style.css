@@ -5,7 +5,7 @@
    src/vineyard.ts, so the three commits of the tour read as a sequence.
    Per-written-commit provenance badges keep their own SHA-derived colours.
 
-   Layout (c1): a tall identity hero on the left (with a small disk-proof strip
+   Layout: a tall identity hero on the left (with a small disk-proof strip
    at its foot), the picture slot top-middle, the next-step slot bottom-middle,
    and the rows slot filling the right column. */
 :root {
@@ -18,9 +18,10 @@
   --deep: #211d16;
   --danger: #a84a35;
 
-  /* Pre-boot fallback for the c1 stage; applyAccent() overrides both from the
-     stage value in src/vineyard.ts, so a later stage changes only STAGE there. */
-  --accent: #347a9e;
+  /* Pre-boot fallback for the c2 stage (green); applyAccent() overrides both
+     from the stage value in src/vineyard.ts, so a later stage changes only
+     STAGE there. */
+  --accent: #5a7d42;
   --accent-on: #fffef8;
 
   --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -117,7 +118,7 @@ body::before {
   letter-spacing: 0.01em;
 }
 .brand .logo { display: block; flex: none; }
-.brand .brand-one { color: var(--accent); font-weight: 700; }
+.brand .brand-stage { color: var(--accent); font-weight: 700; }
 .eyebrow {
   font-family: var(--mono);
   font-size: 11px;
