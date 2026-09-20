@@ -18,11 +18,11 @@
   --deep: #211d16;
   --danger: #a84a35;
 
-  /* Pre-boot fallback for the c2 stage (green); applyAccent() overrides both
+  /* Pre-boot fallback for the c3 stage (yellow); applyAccent() overrides both
      from the stage value in src/vineyard.ts, so a later stage changes only
      STAGE there. */
-  --accent: #5a7d42;
-  --accent-on: #fffef8;
+  --accent: #caa435;
+  --accent-on: #161512;
 
   --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -59,10 +59,25 @@ body::before {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
-#app { height: 100dvh; }
+#app { height: 100dvh; display: flex; flex-direction: column; }
+
+/* ---- test-copy banner (c3) ---- */
+.banner {
+  flex: none;
+  background: var(--accent);
+  color: var(--accent-on);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 9px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--deep) 35%, transparent);
+}
 
 .grid {
-  height: 100dvh;
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: 1.15fr 1fr 1fr;
   grid-template-rows: minmax(0, 1fr) minmax(0, 0.82fr);
@@ -399,7 +414,7 @@ body::before {
   align-items: center;
   justify-content: center;
 }
-.next .actions { display: flex; gap: 14px; align-items: center; margin-top: auto; padding-top: 10px; }
+.next .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: auto; padding-top: 10px; }
 .next .go {
   font-weight: 600;
   font-size: 13px;
@@ -408,6 +423,7 @@ body::before {
   padding: 8px 14px;
   border-radius: 8px;
   text-decoration: none;
+  white-space: nowrap;
 }
 .next .go:hover { filter: brightness(0.94); }
 .next .src { font-size: 12px; color: var(--dim); text-decoration: none; }
@@ -424,8 +440,17 @@ body::before {
       "next rows";
   }
   .panel { padding: 15px; }
+  /* The rows column is too narrow to hold the title and the button on one line;
+     stack the slot header so the Add-a-row label is never clipped. */
+  .slot-head { flex-direction: column; align-items: flex-start; gap: 8px; }
   .codename { font-size: clamp(28px, 9vw, 44px); }
   .marks { max-height: 76px; }
+  /* The next-step panel is short on a narrow screen; let its own content scroll
+     so the production link stays reachable without scrolling the page. */
+  .next { overflow-y: auto; }
+  .next .actions { flex-direction: column; align-items: stretch; gap: 8px; }
+  .next .go { white-space: normal; text-align: center; }
+  .next .src { text-align: center; }
 }
 @media (max-width: 820px) and (max-height: 640px) {
   .id-meta { display: none; }

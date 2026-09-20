@@ -32,6 +32,7 @@ const REF = filled(rt?.ref) ? rt!.ref : __SHAFOX_REF__;
 const BUILD_TIME = filled(rt?.buildTime) ? rt!.buildTime : __SHAFOX_BUILD_TIME__;
 const KAD_URL = "https://kad.dev";
 const SOURCE_URL = "https://github.com/antonkad/shafox";
+const PROD_URL = "https://shafox-platform-demo.kad.dev";
 
 const id = deriveIdentity(COMMIT);
 // The page accent is the fixed stage colour, not the SHA; the SHA still drives
@@ -281,6 +282,7 @@ function applyAccent(): void {
 
 function renderShell(): void {
   app.innerHTML = `
+    <div class="banner" role="note">test copy — changes stay isolated from production</div>
     <div class="grid">
       <section class="panel hero">
         <h1 class="brand">
@@ -289,12 +291,12 @@ function renderShell(): void {
             <line x1="15.7" y1="8.3" x2="21.5" y2="2.5" stroke="var(--ink)" stroke-width="2.2"/>
             <circle cx="12" cy="12" r="4.6" fill="var(--accent)"/>
           </svg>
-          Shafox <span class="brand-stage">· two</span>
+          Shafox <span class="brand-stage">· three — test copy</span>
         </h1>
         <div class="identity">
           <div class="eyebrow">this deploy is</div>
           <p class="codename">${esc(id.codename)}</p>
-          <p class="tagline">a codename from this commit's SHA &middot; stage two green</p>
+          <p class="tagline">a codename from this commit's SHA &middot; stage three yellow</p>
           <div class="id-foot">
             <span class="sha">${id.shortSha}</span>
             <button class="copy-btn" id="copy">copy full sha</button>
@@ -345,18 +347,20 @@ function renderShell(): void {
 
       <section class="panel next">
         <div class="kicker">next step</div>
-        <h2 class="slot-h">Commit two of three</h2>
+        <h2 class="slot-h">Commit three of three</h2>
         <ol class="steps">
-          <li>The picture and the rows from commit one stayed with the project — same fixed key, same table.</li>
-          <li>Click <b>Add a row</b> again — the new row is tagged with commit two's short SHA, so the c2 write is visible.</li>
-          <li>Then the owner rolls the canonical pointer back to commit one. Two owner outcomes are possible:</li>
+          <li>This preview starts from clones of the canonical picture, Postgres rows, and app disk.</li>
+          <li>Click <b>Add a row</b> here — the new row is tagged with commit three's short SHA.</li>
+          <li>Open <b>production</b> in a separate tab and observe that the preview row is absent there.</li>
         </ol>
         <p>
-          <b>Keep current data</b> leaves the commit-two row in place. <b>Restore commit-one data</b> removes everything
-          written after commit one's restore point — destructive. This page cannot trigger either; both are owner actions.
+          This is <b>shared preview state</b>, not a fresh per-visitor sandbox: preview writes persist until the operator
+          resets or deletes the preview, and commit three is never promoted. Visitors cannot trigger deploy, promote,
+          reset, or delete.
         </p>
         <div class="actions">
-          <a class="go" href="${KAD_URL}" target="_blank" rel="noopener">Explore kad.dev →</a>
+          <a class="go" href="${PROD_URL}" target="_blank" rel="noopener">Open production in a new tab →</a>
+          <a class="src" href="${KAD_URL}" target="_blank" rel="noopener">kad.dev</a>
           <a class="src" href="${SOURCE_URL}" target="_blank" rel="noopener">source</a>
         </div>
       </section>

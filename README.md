@@ -4,7 +4,7 @@
 
 Shafox is the demo app for [kad.dev](https://kad.dev). It turns kad.dev's core
 moat — *every commit is a first-class, addressable, stateful deployment* — into
-a single screen you can read at a glance. This is commit **two** of a
+a single screen you can read at a glance. This is commit **three** of a
 three-commit guided tour.
 
 ## The idea
@@ -17,25 +17,29 @@ SHA deterministically derives a **codename** and the per-written-commit
 provenance colours, so the same SHA always looks the same, on any machine,
 forever.
 
-On top of that identity, c2 tells the story through three stable slots:
+On top of that identity, c3 tells the story through three stable slots:
 
 | Slot | What it shows |
 |---|---|
 | **Picture · object storage** | One picture at a fixed key. Upload a bounded JPEG, PNG or WebP (verified from magic bytes, 2 MiB cap); the slot shows the current image or a not-provisioned state. |
 | **Rows · Postgres** | A bounded list of timestamped rows. `Add a row` writes one row tagged with the writing commit's full and short SHA, then keeps only the newest 50. |
-| **Next step** | The c2 copy: the picture and rows from commit one stayed with the project; click `Add a row` again to see the new row tagged by commit two; then the owner rolls the canonical pointer back to commit one. Two owner outcomes are named but not triggerable here — **keep current data** leaves the c2 row, while **restore commit-one data** removes changes after the c1 restore point and is destructive. |
+| **Next step** | The c3 copy: this preview starts from clones of the canonical picture, Postgres rows, and app disk. Click `Add a row` here to write a row tagged with commit three, then open production in a separate tab and observe that the preview row is absent there. |
 
 A small JSON guestbook on the mounted app disk remains as a **disk proof**, and
-the identity hero shows a data-provenance view. `Shafox · two` is the visible
-page title; the derived codename and the per-written-commit provenance badges
-are the secondary identity.
+the identity hero shows a data-provenance view. `Shafox · three — test copy` is
+the visible page title and brand; a prominent banner reads *test copy — changes
+stay isolated from production*; the derived codename and the per-written-commit
+provenance badges are the secondary identity.
 
 ## Canonical vs preview data
 
-Canonical commits serve the shared **main** data. Preview commits run against
-**isolated clones** of that data, so anything a visitor writes on a preview stays
-on the preview until the owner promotes it. Shafox does not claim that every
-commit inherently owns an independent picture or database.
+Canonical commits serve the shared **main** data. This c3 preview starts from
+**isolated clones** of the canonical picture, Postgres rows, and app disk, so
+writes here stay isolated from production. That isolation is **shared preview
+state, not a fresh per-visitor sandbox**: preview writes persist until the
+operator resets or deletes the preview, and commit three is never promoted.
+Visitors cannot trigger deploy, promote, reset, or delete. Shafox does not claim
+that every commit inherently owns an independent picture or database.
 
 ## How the SHA gets in
 
