@@ -1,0 +1,16 @@
+node_modules
+dist
+.data
+.git
+.gitignore
+.opencode
+opencode.jsonc
+.playwright-mcp
+*.md
+*.png
+*.tsbuildinfo
+.env
+.env.*
+.DS_Store
+.vite
+test
